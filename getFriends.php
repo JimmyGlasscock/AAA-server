@@ -45,6 +45,7 @@ $data = array();
 foreach($friendIDs as $id){
 	$query = "SELECT id,firstname,lastname,profile_picture_id FROM users WHERE id='".$id."';";
 	$result = $conn->query($query)->fetch_assoc();
+	$result['accepted'] = '1';
 	array_push($data, $result);
 }
 die(json_encode($data));
