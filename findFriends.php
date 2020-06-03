@@ -30,8 +30,7 @@ while($row = $result->fetch_assoc()){
 	array_push($all_users, $row);
 }
 
-
-$query = "SELECT users.id, username, firstname, lastname FROM users RIGHT JOIN friends ON users.id = friend_id WHERE (friend_id != '".$userid."' AND sender_id != '".$userid."');"
+$query = "SELECT id, username, firstname, lastname FROM users WHERE id NOT IN(SELECT users.id FROM users RIGHT JOIN friends ON users.id = sender_id WHERE (friend_id = '".$userid."') UNION SELECT users.id FROM users RIGHT JOIN friends ON users.id = friend_id WHERE (sender_id = '".$userid."'));";
 $result = $conn->query($query);
 while($row = $result->fetch_assoc()){
 	$row['accepted'] = '-1';
