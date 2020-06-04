@@ -27,6 +27,7 @@ $friend_requests = array();
 $query = "SELECT users.id, username, firstname, lastname, accepted FROM users RIGHT JOIN friends ON users.id = sender_id WHERE (friend_id = '".$userid."' AND accepted='0');";
 $result = $conn->query($query);
 while($row = $result->fetch_assoc()){
+	$row['accepted'] = '2';
 	array_push($friend_requests, $row);
 }
 
